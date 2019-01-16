@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['ivanpauls1705@gmail.com']
 
   spec.summary       = %q{Game for guess secret code}
-  spec.homepage      = 'https://github.com/WoLkErSs/codebreaker_gem'
+  spec.homepage      = 'https://github.com/WoLkErSs/codebreaker-gem'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
