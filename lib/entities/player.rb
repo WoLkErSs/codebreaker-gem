@@ -5,14 +5,13 @@ module Codebreaker
     attr_reader :name
     attr_accessor :errors_store
 
-    MAX_LENGTH = 20
-    MIN_LENGTH = 3
+    LENGTH_RANGE = 3..20
 
     def assign_name(name)
       @errors_store = []
       return @name = name if validate_name(name)
 
-      @errors_store << I18n.t(:when_wrong_name, min: MIN_LENGTH, max: MAX_LENGTH)
+      @errors_store << I18n.t(:when_wrong_name, min: LENGTH_RANGE.first, max: LENGTH_RANGE.last)
     end
 
     def valid?
@@ -22,9 +21,9 @@ module Codebreaker
     private
 
     def validate_name(name)
-      return if validate_presence?(name)
+      return unless validate_presence?(name)
 
-      validate_length_in_range?(name, MIN_LENGTH, MAX_LENGTH)
+      valid_name?(name, LENGTH_RANGE)
     end
   end
 end
