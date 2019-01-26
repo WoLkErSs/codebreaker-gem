@@ -42,9 +42,9 @@ module Codebreaker
 
     def remove_instance_helpers
       remove_instance_variable(:@winner) if @winner
-      remove_instance_variable(:@errors)
+      remove_instance_variable(:@errors) if @errors
       remove_instance_variable(:@hints_array) if @hints_array
-      remove_instance_variable(:@have_hints)
+      remove_instance_variable(:@have_hints) if @have_hints
     end
 
     private

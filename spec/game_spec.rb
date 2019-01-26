@@ -21,6 +21,20 @@ module Codebreaker
       end
     end
 
+    describe '#remove_instance_helpers' do
+      let(:hints_array) { [1,2,3,4] }
+      context 'when need to zero game' do
+        before do
+          allow(subject.instance_variable_set(:@winner, true))
+          allow(subject.instance_variable_set(:@errors, true))
+          allow(subject.instance_variable_set(:@have_hints, '12'))
+          allow(subject.instance_variable_set(:@hints_array, hints_array))
+        end
+        it { expect {subject.remove_instance_helpers}.to change{subject.winner}.to(nil) }
+        it { expect {subject.remove_instance_helpers}.to change{subject.errors}.to(nil) }
+      end
+    end
+
     describe '#attempt' do
       let(:hint) {'hint'}
       let(:user_code) {'1234'}
