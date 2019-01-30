@@ -3,13 +3,12 @@ module Codebreaker
     include Validation
 
     AMOUNT_DIGITS = 4
-    RANGE_DIGITS = 1..6
     DIFFICULTIES = {
       easy: { attempts: 15, hints: 2, difficulty: 'easy' },
       hard: { attempts: 10, hints: 2, difficulty: 'hard' },
       expert: { attempts: 5, hints: 1, difficulty: 'expert' }
     }.freeze
-    RANGE_OF_DIGITS = 0..4.freeze
+    RANGE_OF_DIGITS = 1..6.freeze
     GUESS_CODE = { hint: 'hint', leave: 'exit' }.freeze
 
     attr_reader :name, :hints_total, :have_hints, :attempts_total, :hints_used, :attempts_used, :difficulty, :winner, :attempts_left
@@ -70,7 +69,7 @@ module Codebreaker
       return unless validate_length(entity, length)
       return unless validate_match(entity)
 
-      valid_digits?(entity, RANGE_DIGITS)
+      valid_digits?(entity, RANGE_OF_DIGITS)
     end
 
     def count_attempt
