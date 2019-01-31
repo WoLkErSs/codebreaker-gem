@@ -100,6 +100,7 @@ module Codebreaker
 
     def secret_code
       @secret_code ||= Array.new(AMOUNT_DIGITS) { rand(RANGE_OF_DIGITS) }.join('')
+      binding.pry
       convert_to_array(@secret_code)
     end
 

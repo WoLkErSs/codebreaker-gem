@@ -9,8 +9,6 @@ module Codebreaker
       File.open(PATH, 'a+') { |f| f.write player.to_yaml }
     end
 
-    private
-
     def load_db
       YAML.load_stream(File.open(PATH))
     end
