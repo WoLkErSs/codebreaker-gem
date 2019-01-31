@@ -14,7 +14,7 @@ module Codebreaker
     RANGE_OF_DIGITS = 1..6.freeze
     GUESS_CODE = { hint: 'hint', leave: 'exit' }.freeze
 
-    attr_reader :got_hints, :secret_code, :name, :hints_total, :have_hints, :attempts_total, :hints_used, :attempts_used, :difficulty, :winner, :attempts_left
+    attr_reader :date, :got_hints, :secret_code, :name, :hints_total, :have_hints, :attempts_total, :hints_used, :attempts_used, :difficulty, :winner, :attempts_left
     attr_accessor :errors
 
     def game_options(user_difficulty:, player:)
@@ -47,6 +47,11 @@ module Codebreaker
       remove_instance_variable(:@errors) if @errors
       remove_instance_variable(:@hints_array) if @hints_array
       remove_instance_variable(:@have_hints) if @have_hints
+    end
+
+    def secret_code
+      @secret_code ||= Array.new(AMOUNT_DIGITS) { rand(RANGE_OF_DIGITS) }.join('')
+      convert_to_array(@secret_code)
     end
 
     private
@@ -96,11 +101,6 @@ module Codebreaker
 
     def compare_with_right_code(user_code)
       user_code == secret_code
-    end
-
-    def secret_code
-      @secret_code ||= Array.new(AMOUNT_DIGITS) { rand(RANGE_OF_DIGITS) }.join('')
-      convert_to_array(@secret_code)
     end
 
     def guessing(user_code)

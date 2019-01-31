@@ -16,9 +16,10 @@ module Codebreaker
         row << i.name
         row << i.difficulty
         row << i.attempts_total
-        row << i.attempts_used
+        row << i.attempts_left
         row << i.hints_total
-        row << i.hints_used
+        row << i.have_hints
+        row << i.date
         rows << row
       end
       rows
