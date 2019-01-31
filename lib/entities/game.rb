@@ -2,7 +2,10 @@ module Codebreaker
   class Game
     include Validation
 
+    INCREMENT = 1
     AMOUNT_DIGITS = 4
+    POSITIVE_DIGIT = '+'.freeze
+    NEGATIVE_DIGIT = '-'.freeze
     DIFFICULTIES = {
       easy: { attempts: 15, hints: 2, difficulty: 'easy' },
       hard: { attempts: 10, hints: 2, difficulty: 'hard' },
@@ -11,7 +14,7 @@ module Codebreaker
     RANGE_OF_DIGITS = 1..6.freeze
     GUESS_CODE = { hint: 'hint', leave: 'exit' }.freeze
 
-    attr_reader :name, :hints_total, :have_hints, :attempts_total, :hints_used, :attempts_used, :difficulty, :winner, :attempts_left
+    attr_reader :got_hints, :secret_code, :name, :hints_total, :have_hints, :attempts_total, :hints_used, :attempts_used, :difficulty, :winner, :attempts_left
     attr_accessor :errors
 
     def game_options(user_difficulty:, player:)
@@ -73,8 +76,8 @@ module Codebreaker
     end
 
     def count_attempt
-      @attempts_left -= 1
-      @attempts_used += 1
+      @attempts_left -= INCREMENT
+      @attempts_used += INCREMENT
     end
 
     def use_hint
@@ -83,8 +86,8 @@ module Codebreaker
     end
 
     def count_tip
-      @have_hints -= 1
-      @hints_used += 1
+      @have_hints -= INCREMENT
+      @hints_used += INCREMENT
       @hints_array ||= secret_code.clone.shuffle
       hint = @hints_array.pop.to_s
       @got_hints += hint
@@ -102,7 +105,7 @@ module Codebreaker
 
     def guessing(user_code)
       count_attempt
-      return @winner = true if compare_with_right_code(user_code)
+      @date = Time.new and return @winner = true if compare_with_right_code(user_code)
 
       pin = []
       clone_secret_code = secret_code.clone
@@ -110,13 +113,13 @@ module Codebreaker
       complex_code.map do |user_digit, secret_digit|
         next unless user_digit == secret_digit
 
-        pin << '+'
+        pin << POSITIVE_DIGIT
         user_code.delete_at(user_code.index(user_digit))
         clone_secret_code.delete_at(clone_secret_code.index(secret_digit))
       end
       clone_secret_code.each do |digit|
         next unless user_code.include? digit
-          pin << '-'
+          pin << NEGATIVE_DIGIT
           user_code.delete_at(user_code.index(digit))
       end
       pin.sort.join('')

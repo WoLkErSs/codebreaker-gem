@@ -24,6 +24,14 @@ module Codebreaker
       end
     end
 
+    def show_statistics
+      respondent.show(winners_load)
+    end
+
+    def winners_load
+      statistic.winners(load_db)
+    end
+
     private
 
     def player
@@ -112,14 +120,6 @@ module Codebreaker
     def leave
       respondent.show_message(:leave)
       exit
-    end
-
-    def show_statistics
-      respondent.show(winners_load)
-    end
-
-    def winners_load
-      statistic.winners(load_db)
     end
   end
 end
