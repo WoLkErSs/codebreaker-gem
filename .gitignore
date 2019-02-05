@@ -11,3 +11,4 @@
 .rspec_status
 /lib/database/stats.yml
 /codebreaker_PI-0.3.0.gem
+/pkg
