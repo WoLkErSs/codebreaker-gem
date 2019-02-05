@@ -1,5 +1,4 @@
 require 'yaml'
-require 'pry'
 require 'i18n'
 require_relative './lib/modules/uploader.rb'
 require_relative './lib/modules/validation.rb'
